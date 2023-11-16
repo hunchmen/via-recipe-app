@@ -6,7 +6,9 @@
  */
 package com.via.recipe.api;
 
+import java.util.List;
 import org.springframework.http.ResponseEntity;
+import com.via.recipe.model.Recipe;
 
 /**
  * 
@@ -17,5 +19,5 @@ import org.springframework.http.ResponseEntity;
  */
 public interface RecipeApi {
 
-    public ResponseEntity<String> getAllRecipes();
+    public ResponseEntity<List<Recipe>> getAllRecipes();
 }
