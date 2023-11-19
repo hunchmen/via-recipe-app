@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.via.recipe.model.Recipe;
+import com.via.recipe.model.RecipeDTO;
 import com.via.recipe.service.RecipeService;
 import io.swagger.annotations.ApiOperation;
 
@@ -37,6 +40,24 @@ public class RecipeApiImpl implements RecipeApi {
         List<Recipe> recipes = recipeService.getAllRecipes();
 
         return new ResponseEntity<>(recipes, HttpStatus.OK);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.api.RecipeApi#addRecipe()
+     */
+    @Override
+    @PostMapping("/save")
+    @ApiOperation(value = "Add Recipe")
+    public ResponseEntity<RecipeDTO> addRecipe(@RequestBody RecipeDTO recipeDTO) {
+
+        Recipe recipe = new Recipe();
+        recipe.setCuisine(recipeDTO.getCuisine());
+        recipe.setRecipeName(recipeDTO.getRecipeName());
+        recipeService.addRecipe(recipe);
+
+        return new ResponseEntity<>(recipeDTO, HttpStatus.OK);
     }
 
 }
