@@ -9,6 +9,7 @@ package com.via.recipe.api;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import com.via.recipe.model.Recipe;
+import com.via.recipe.model.RecipeDTO;
 
 /**
  * 
@@ -20,4 +21,6 @@ import com.via.recipe.model.Recipe;
 public interface RecipeApi {
 
     public ResponseEntity<List<Recipe>> getAllRecipes();
+
+    public ResponseEntity<RecipeDTO> addRecipe(RecipeDTO recipeDTO);
 }
