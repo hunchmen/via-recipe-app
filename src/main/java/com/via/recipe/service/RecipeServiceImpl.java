@@ -37,4 +37,15 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findAll();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.service.RecipeService#addRecipe(com.via.recipe.model.Recipe)
+     */
+    @Override
+    public Recipe addRecipe(Recipe recipe) {
+        return recipeRepository.save(recipe);
+
+    }
+
 }
