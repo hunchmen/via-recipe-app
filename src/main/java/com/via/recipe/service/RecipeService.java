@@ -19,4 +19,6 @@ import com.via.recipe.model.Recipe;
 public interface RecipeService {
 
     List<Recipe> getAllRecipes();
+
+    Recipe addRecipe(Recipe recipe);
 }
