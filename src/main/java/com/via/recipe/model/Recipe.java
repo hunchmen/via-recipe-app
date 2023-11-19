@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -25,7 +26,9 @@ import javax.persistence.Table;
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "next_seq")
+    @SequenceGenerator(name = "next_seq", sequenceName = "next_seq",
+            allocationSize = 1)
     private Long id;
 
     @Column(name = "recipe_name")
