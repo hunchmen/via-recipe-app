@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.via.recipe.model.Recipe;
@@ -33,6 +34,7 @@ import io.swagger.annotations.ApiOperation;
  *
  */
 @RestController
+@RequestMapping(path = "/v1")
 public class RecipeApiImpl implements RecipeApi {
 
     @Autowired
@@ -113,7 +115,7 @@ public class RecipeApiImpl implements RecipeApi {
      * @see com.via.recipe.api.RecipeApi#getRecipes(int, int, java.lang.String)
      */
     @Override
-    @GetMapping("/paginated")
+    @GetMapping("/paginated/recipes")
     @ApiOperation(value = "Paginated Recipe Results")
     public ResponseEntity<Page<Recipe>> getRecipes(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
@@ -131,6 +133,26 @@ public class RecipeApiImpl implements RecipeApi {
         Page<Recipe> recipes = recipeService.getRecipes(page, size, sortBy);
 
         return new ResponseEntity<>(recipes, HttpStatus.OK);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.api.RecipeApi#findRecipeById(java.lang.Long)
+     */
+    @Override
+    @GetMapping("/findById/{id}")
+    @ApiOperation(value = "Find recipe by id")
+    public ResponseEntity<Optional<Recipe>> findRecipeById(@PathVariable Long id) {
+
+        Optional<Recipe> recipe = recipeService.findRecipeById(id);
+
+        if (recipe.isPresent()) {
+            return new ResponseEntity<>(recipe, HttpStatus.OK);
+        } else {
+            throw new NullPointerException("No recipe found with an id of " + id);
+        }
+
     }
 
 }

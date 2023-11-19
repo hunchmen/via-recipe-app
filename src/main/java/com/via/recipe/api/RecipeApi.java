@@ -7,6 +7,7 @@
 package com.via.recipe.api;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import com.via.recipe.model.Recipe;
@@ -30,4 +31,6 @@ public interface RecipeApi {
     public ResponseEntity<Boolean> updateRecipe(Long id, RecipeDTO recipeDTO);
 
     public ResponseEntity<Boolean> deleteRecipe(Long id);
+
+    public ResponseEntity<Optional<Recipe>> findRecipeById(Long id);
 }
