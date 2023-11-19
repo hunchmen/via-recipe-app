@@ -78,4 +78,18 @@ public class RecipeServiceImpl implements RecipeService {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.service.RecipeService#deleteRecipe(java.util.Optional)
+     */
+    @Override
+    public void deleteRecipe(Long id) {
+        if (id != null) {
+            recipeRepository.deleteById(id);
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
 }

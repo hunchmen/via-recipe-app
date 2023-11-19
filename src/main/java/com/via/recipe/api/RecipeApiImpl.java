@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,6 +78,26 @@ public class RecipeApiImpl implements RecipeApi {
             existingRecipe.get().setCuisine(recipeDTO.getCuisine());
             existingRecipe.get().setRecipeName(recipeDTO.getRecipeName());
             recipeService.updateRecipe(existingRecipe);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.api.RecipeApi#deleteRecipe(java.lang.Long)
+     */
+    @Override
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "Delete Recipe")
+    public ResponseEntity<Boolean> deleteRecipe(Long id) {
+
+        Optional<Recipe> existingRecipe = recipeService.findRecipeById(id);
+        if (existingRecipe.isPresent()) {
+            recipeService.deleteRecipe(id);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(false, HttpStatus.OK);

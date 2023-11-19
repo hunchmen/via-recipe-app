@@ -25,5 +25,7 @@ public interface RecipeService {
 
     void updateRecipe(Optional<Recipe> existingRecipe);
 
+    void deleteRecipe(Long id);
+
     Optional<Recipe> findRecipeById(Long id);
 }
