@@ -8,6 +8,7 @@ package com.via.recipe.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
 import com.via.recipe.model.Recipe;
 
 /**
@@ -18,6 +19,8 @@ import com.via.recipe.model.Recipe;
  *
  */
 public interface RecipeService {
+
+    Page<Recipe> getRecipes(int page, int size, String sortBy);
 
     List<Recipe> getAllRecipes();
 

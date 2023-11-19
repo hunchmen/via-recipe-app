@@ -7,6 +7,7 @@
 package com.via.recipe.api;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import com.via.recipe.model.Recipe;
 import com.via.recipe.model.RecipeDTO;
@@ -19,6 +20,8 @@ import com.via.recipe.model.RecipeDTO;
  *
  */
 public interface RecipeApi {
+
+    public ResponseEntity<Page<Recipe>> getRecipes(int page, int size, String sortBy);
 
     public ResponseEntity<List<Recipe>> getAllRecipes();
 

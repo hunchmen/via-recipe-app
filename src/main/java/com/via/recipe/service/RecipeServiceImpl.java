@@ -8,8 +8,12 @@ package com.via.recipe.service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.via.recipe.model.Recipe;
+import com.via.recipe.repository.RecipePaginableRepository;
 import com.via.recipe.repository.RecipeRepository;
 
 /**
@@ -22,10 +26,15 @@ import com.via.recipe.repository.RecipeRepository;
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
+    private final RecipePaginableRepository recipePaginableRepository;
+
     private final RecipeRepository recipeRepository;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository,
+            RecipePaginableRepository recipePaginableRepository) {
+
         this.recipeRepository = recipeRepository;
+        this.recipePaginableRepository = recipePaginableRepository;
     }
 
     /*
@@ -90,6 +99,20 @@ public class RecipeServiceImpl implements RecipeService {
         } else {
             throw new NullPointerException();
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.service.RecipeService#getRecipes(java.lang.Integer, java.lang.Integer,
+     * java.lang.String)
+     */
+    @Override
+    public Page<Recipe> getRecipes(int page, int size, String sortBy) {
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        return recipePaginableRepository.findAll(pageable);
     }
 
 }
