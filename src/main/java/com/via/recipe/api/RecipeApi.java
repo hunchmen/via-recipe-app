@@ -23,4 +23,6 @@ public interface RecipeApi {
     public ResponseEntity<List<Recipe>> getAllRecipes();
 
     public ResponseEntity<RecipeDTO> addRecipe(RecipeDTO recipeDTO);
+
+    public ResponseEntity<Boolean> updateRecipe(Long id, RecipeDTO recipeDTO);
 }

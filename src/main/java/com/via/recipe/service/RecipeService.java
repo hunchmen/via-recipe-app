@@ -7,6 +7,7 @@
 package com.via.recipe.service;
 
 import java.util.List;
+import java.util.Optional;
 import com.via.recipe.model.Recipe;
 
 /**
@@ -21,4 +22,8 @@ public interface RecipeService {
     List<Recipe> getAllRecipes();
 
     Recipe addRecipe(Recipe recipe);
+
+    void updateRecipe(Optional<Recipe> existingRecipe);
+
+    Optional<Recipe> findRecipeById(Long id);
 }

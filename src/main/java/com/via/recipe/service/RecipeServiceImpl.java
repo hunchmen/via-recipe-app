@@ -7,6 +7,7 @@
 package com.via.recipe.service;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.via.recipe.model.Recipe;
 import com.via.recipe.repository.RecipeRepository;
@@ -45,6 +46,35 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe addRecipe(Recipe recipe) {
         return recipeRepository.save(recipe);
+
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.service.RecipeService#findRecipe(java.lang.Long)
+     */
+    @Override
+    public Optional<Recipe> findRecipeById(Long id) {
+
+        return recipeRepository.findById(id);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.via.recipe.service.RecipeService#updateRecipe(java.util.Optional)
+     */
+    @Override
+    public void updateRecipe(Optional<Recipe> existingRecipe) {
+
+        Recipe recipe = existingRecipe.orElse(null);
+        if (recipe != null) {
+            recipeRepository.saveAndFlush(recipe);
+        } else {
+            throw new NullPointerException();
+        }
 
     }
 
