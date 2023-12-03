@@ -22,6 +22,8 @@ import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.UiConfiguration;
+import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -49,8 +51,15 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any()).build();
     }
 
+
+    @Bean
+    public UiConfiguration uiConfiguration() {
+        return UiConfigurationBuilder//
+                .builder().defaultModelsExpandDepth(-1).build();
+    }
+
     private ApiInfo apiInfo() {
-        return new ApiInfo("Spring Boot Blog REST APIs", "Spring Boot Blog REST API Documentation", "1",
+        return new ApiInfo("Spring Boot REST APIs", "Spring Boot Blog REST API Documentation", "1",
                 "Terms of service", new Contact("Val Alberto", "io.via", "via@email.com"), "License of API",
                 "API license URL", Collections.emptyList());
     }
@@ -65,6 +74,5 @@ public class SwaggerConfig {
         authorizationScopes[0] = authorizationScope;
         return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
     }
-
 
 }
